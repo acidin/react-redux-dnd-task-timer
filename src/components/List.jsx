@@ -13,26 +13,8 @@ require('../stylesheets/List.css')
 export class List extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            ...props
-        };
-        this.moveItem = this.moveItem.bind(this);
     }
 
-
-    moveItem(dragIndex, hoverIndex) {
-        const { items } = this.state;
-        const dragItem = items[dragIndex];
-
-        this.setState(update(this.state, {
-            items: {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, dragItem],
-                ],
-            },
-        }));
-    }
 
 
     render() {
