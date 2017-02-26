@@ -1,0 +1,6 @@
+.icon {
+  display: block;
+}
+.icon path {
+  fill: var(--color-mineral-grey);
+}
