@@ -10,6 +10,7 @@ import _ from 'underscore'
 import * as ItemActions from '../actions/ListActions.js'
 import ListItemEditor from './ListItemEditor.jsx'
 import IconButton from './IconButton.jsx'
+import Timer from './Timer.jsx'
 
 require('../stylesheets/ListItem.css')
 
@@ -26,7 +27,7 @@ class ListItem extends React.Component {
     )
   }
   render() {
-    const { text, itemId } = this.props
+    const { text, itemId, isOn, time } = this.props
       console.log(this.props);
     const { isEditing } = this.state
     const className = this.getClassName()
@@ -43,6 +44,7 @@ class ListItem extends React.Component {
             <IconButton icon="trashCan" text="Delete" onClick={this.handleDelete} />
           </div>
         }
+        <Timer itemId={itemId} isOn={isOn} time={time} />
       </li>
     )
   }

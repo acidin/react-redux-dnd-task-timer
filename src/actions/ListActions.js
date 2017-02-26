@@ -20,16 +20,16 @@ function hideItem (id) {
   return { type: types.HIDE_ITEM, id }
 }
 
-function startTimer() {
-  return {type: types.START_TIMER}
+function startTimer(id, offset) {
+  return {type: types.START_TIMER, id, offset}
 }
 
-function stopTimer() {
-  return {type: types.STOP_TIMER}
+function stopTimer(id) {
+  return {type: types.STOP_TIMER, id}
 }
 
-function tick() {
-  return {type: types.TICK}
+function tick(id, time) {
+  return {type: types.TICK, id, time}
 }
 
 let id = 3
@@ -58,15 +58,15 @@ export function deleteItem (id) {
   }
 }
 
-export function startTimerDispatch() {
-  return dispatch => dispatch(startTimer())
+export function startTimerDispatch(id, offset) {
+  return dispatch => dispatch(startTimer(id, offset))
 }
 
-export function stopTimerDispatch() {
-  return dispatch => dispatch(stopTimer())
+export function stopTimerDispatch(id) {
+  return dispatch => dispatch(stopTimer(id))
 }
 
-export function tickDispatch() {
-  return dispatch => dispatch(tick())
+export function tickDispatch(id, time) {
+  return dispatch => dispatch(tick(id, time))
 }
 

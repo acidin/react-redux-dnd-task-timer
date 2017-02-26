@@ -7,12 +7,10 @@ import * as ItemActions from './actions/ListActions.js'
 
 const initialState = {
   items: [
-    { id: 0, text: 'Item' },
-    { id: 1, text: 'Another item' },
-    { id: 2, text: 'Something else' }
-  ],
-    isOn: false,
-    time: 0
+    { id: 0, text: 'Item', isOn: false, time: 0, offset: 0 },
+    { id: 1, text: 'Another item', isOn: false, time: 0, offset: 0 },
+    { id: 2, text: 'Something else', isOn: false, time: 0, offset: 0 }
+  ]
 }
 
 const store = configureStore(initialState)

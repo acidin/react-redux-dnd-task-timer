@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes.js'
 
 function addItem (state, action) {
   return [
-    { text: action.text, id: action.id, hidden: true },
+    { text: action.text, id: action.id, hidden: true, isOn: false, time: 0, offset: 0 },
     ...state
   ]
 }
@@ -44,28 +44,40 @@ function hideItem (state, action) {
 }
 
 function startTimer (state, action) {
-  return {
-    ...state,
-    isOn: true,
-    time: state.time, // Begin time
-    offset: action.offset
-  }
+
+    const next = JSON.parse(JSON.stringify(state))
+    const index = next.findIndex((item) => {
+      return item.id === action.id
+    })
+    next[index].isOn = true
+    //next[index].time = state.time
+    next[index].offset = action.offset
+    return next
+
 }
 
 function stopTimer (state, action) {
-  return {
-    ...state,
-    isOn: false,
-    time: state.time
-  };
+
+  const next = JSON.parse(JSON.stringify(state))
+  const index = next.findIndex((item) => {
+    return item.id === action.id
+  })
+  next[index].isOn = false
+  return next
+
 }
 
 function tick (state, action) {
-  return {
-    ...state,
-    time: state.time + (action.time - state.offset),
-    offset: action.time
-  };
+
+  const next = JSON.parse(JSON.stringify(state))
+  const index = next.findIndex((item) => {
+    return item.id === action.id
+  })
+
+  next[index].time = next[index].time + (action.time - next[index].offset)
+  next[index].offset = action.time
+  return next
+
 }
 
 export default function (state = [], action) {

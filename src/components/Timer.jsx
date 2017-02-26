@@ -7,34 +7,31 @@ import * as ItemActions from '../actions/ListActions.js'
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
+  /*  this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);*/
+
+    _.bindAll(this,
+      'start',
+      'stop'
+    );
 
   }
 
   start() {
-    /*store.dispatch({
-      type: 'START_TIMER',
-      offset: Date.now(),
-    });*/
 
-    this.props.startTimer();
+    const {itemId} = this.props;
+
+    this.props.startTimer(itemId, Date.now());
 
     this.interval = setInterval(() => {
-      /*store.dispatch({
-        type: 'TICK',
-        time: Date.now()
-      });*/
-      this.props.tick();
+      this.props.tick(itemId, Date.now());
     });
   }
 
   stop() {
+    const {itemId} = this.props;
     this.interval = clearInterval(this.interval);
-    /*store.dispatch({
-      type: 'STOP_TIMER'
-    });*/
-    this.props.stopTimer();
+    this.props.stopTimer(itemId);
   }
 
   click() {
@@ -42,19 +39,18 @@ class Timer extends React.Component {
   }
 
   format(time) {
-    const pad = (time, length) => {
-      while (time.length < length) {
-        time = '0' + time;
-      }
-      return time;
+
+    Number.prototype.pad = function (len) {
+      return (new Array(len+1).join("0") + this).slice(-len);
     }
 
     time = new Date(time);
-    let m = pad(time.getMinutes().toString(), 2);
-    let s = pad(time.getSeconds().toString(), 2);
-    let ms = pad(time.getMilliseconds().toString(), 3);
 
-    return `${m} : ${s} . ${ms}`;
+    var timeFormatted = time.getUTCHours().pad(2) + ":"
+      + time.getMinutes().pad(2) + ":"
+      + time.getSeconds().pad(2);
+
+    return timeFormatted;
   }
 
   render() {
