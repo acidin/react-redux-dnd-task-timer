@@ -43,6 +43,31 @@ function hideItem (state, action) {
   return next
 }
 
+function startTimer (state, action) {
+  return {
+    ...state,
+    isOn: true,
+    time: state.time, // Begin time
+    offset: action.offset
+  }
+}
+
+function stopTimer (state, action) {
+  return {
+    ...state,
+    isOn: false,
+    time: state.time
+  };
+}
+
+function tick (state, action) {
+  return {
+    ...state,
+    time: state.time + (action.time - state.offset),
+    offset: action.time
+  };
+}
+
 export default function (state = [], action) {
   switch (action.type) {
     case types.ADD_ITEM:
@@ -59,6 +84,15 @@ export default function (state = [], action) {
 
     case types.HIDE_ITEM:
       return hideItem(state, action)
+
+    case types.START_TIMER:
+      return startTimer(state, action)
+
+    case types.STOP_TIMER:
+      return stopTimer(state, action)
+
+    case types.TICK:
+      return tick(state, action)
 
     default:
       return state

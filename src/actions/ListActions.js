@@ -20,6 +20,18 @@ function hideItem (id) {
   return { type: types.HIDE_ITEM, id }
 }
 
+function startTimer() {
+  return {type: types.START_TIMER}
+}
+
+function stopTimer() {
+  return {type: types.STOP_TIMER}
+}
+
+function tick() {
+  return {type: types.TICK}
+}
+
 let id = 3
 const getUniqueId = () => {
   return id++;
@@ -30,15 +42,6 @@ export function addItem (text) {
     const id = getUniqueId()
     dispatch(addItemOptimistic(text, id))
     setTimeout(() => dispatch(showItem(id)), 1)
-    // api.addItem(text)
-    //  .catch(
-    //    /*
-    //     *  PROJECT IDEA
-    //     *  if the request failed due to server being unreachable,
-    //     *  we can cache this action in localStorage to be called later
-    //     *
-    //     */
-    //  )
   }
 }
 
@@ -54,3 +57,16 @@ export function deleteItem (id) {
     setTimeout(() => dispatch(deleteItemOptimistic(id)), 500)
   }
 }
+
+export function startTimerDispatch() {
+  return dispatch => dispatch(startTimer())
+}
+
+export function stopTimerDispatch() {
+  return dispatch => dispatch(stopTimer())
+}
+
+export function tickDispatch() {
+  return dispatch => dispatch(tick())
+}
+
