@@ -23,6 +23,7 @@
     "react-dom": "*",
     "react-redux": "*",
     "redux": "*",
+    "redux-localstorage": "^0.4.1",
     "redux-thunk": "*",
     "underscore": "^1.8.3"
   },

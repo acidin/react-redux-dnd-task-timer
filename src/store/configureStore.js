@@ -1,18 +1,8 @@
 import { createStore, applyMiddleware,compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from '../reducers/root.js'
+import persistState from 'redux-localstorage'
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware
-)(createStore)
-
-export default function configureStore (initialState) {
-  return createStoreWithMiddleware(rootReducer, initialState)
-}
-
-
-
-/*
 const composeEnhancers =
   typeof window === 'object' &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
@@ -23,11 +13,12 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
   applyMiddleware(
     thunkMiddleware
-  )
+  ),
+  persistState()
 );
 
 
 export default function configureStore (initialState) {
-  return createStore(rootReducer, enhancer)
+  return createStore(rootReducer, initialState, enhancer)
 }
-*/
+
