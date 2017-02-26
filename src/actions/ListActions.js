@@ -32,6 +32,10 @@ function tick(id, time) {
   return {type: types.TICK, id, time}
 }
 
+function updateItems(newstate) {
+  return {type: types.UPDATE_ITEMS, newstate}
+}
+
 let id = 3
 const getUniqueId = () => {
   return id++;
@@ -68,5 +72,9 @@ export function stopTimerDispatch(id) {
 
 export function tickDispatch(id, time) {
   return dispatch => dispatch(tick(id, time))
+}
+
+export function updateItemsDispatch(newstate) {
+  return dispatch => dispatch(updateItems(newstate))
 }
 

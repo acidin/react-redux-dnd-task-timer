@@ -7,14 +7,11 @@ import * as ItemActions from '../actions/ListActions.js'
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-  /*  this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);*/
 
     _.bindAll(this,
       'start',
       'stop'
     );
-
   }
 
   start() {

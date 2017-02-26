@@ -80,6 +80,12 @@ function tick (state, action) {
 
 }
 
+function updateItems(state, action) {
+  return {
+    ...state, items: action.newstate
+  }
+}
+
 export default function (state = [], action) {
   switch (action.type) {
     case types.ADD_ITEM:
@@ -105,6 +111,9 @@ export default function (state = [], action) {
 
     case types.TICK:
       return tick(state, action)
+
+    case types.UPDATE_ITEMS:
+      return updateItems(state, action)
 
     default:
       return state

@@ -77,7 +77,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export { ListItem }
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
