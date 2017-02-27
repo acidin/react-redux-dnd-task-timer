@@ -28,6 +28,10 @@ function stopTimer(id) {
   return {type: types.STOP_TIMER, id}
 }
 
+function resetTimer(id) {
+  return {type: types.RESET_TIMER, id}
+}
+
 function tick(id, time) {
   return {type: types.TICK, id, time}
 }
@@ -68,6 +72,10 @@ export function startTimerDispatch(id, offset) {
 
 export function stopTimerDispatch(id) {
   return dispatch => dispatch(stopTimer(id))
+}
+
+export function resetTimerDispatch(id) {
+  return dispatch => dispatch(resetTimer(id))
 }
 
 export function tickDispatch(id, time) {

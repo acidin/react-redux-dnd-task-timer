@@ -80,10 +80,21 @@ function tick (state, action) {
 
 }
 
+function resetTimer (state, action) {
+
+  const next = JSON.parse(JSON.stringify(state))
+  const index = next.findIndex((item) => {
+    return item.id === action.id
+  })
+  next[index].isOn = false
+  next[index].time = 0
+  return next
+
+}
+
 function updateItems(state, action) {
  return [
-    ...action.newstate,
-    ...state
+    ...action.newstate
   ]
 }
 
@@ -109,6 +120,9 @@ export default function (state = [], action) {
 
     case types.STOP_TIMER:
       return stopTimer(state, action)
+
+    case types.RESET_TIMER:
+      return resetTimer(state, action)
 
     case types.TICK:
       return tick(state, action)

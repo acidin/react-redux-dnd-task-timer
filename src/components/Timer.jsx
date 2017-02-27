@@ -10,7 +10,8 @@ class Timer extends React.Component {
 
     _.bindAll(this,
       'start',
-      'stop'
+      'stop',
+      'reset'
     );
   }
 
@@ -30,6 +31,13 @@ class Timer extends React.Component {
     this.interval = clearInterval(this.interval);
     this.props.stopTimer(itemId);
   }
+
+  reset() {
+    const {itemId} = this.props;
+    this.interval = clearInterval(this.interval);
+    this.props.resetTimer(itemId);
+  }
+
 
   click() {
     this.props.isOn ? start() : stop();
@@ -57,6 +65,9 @@ class Timer extends React.Component {
         <button onClick={this.interval ? this.stop : this.start}>
           { this.interval ? 'Stop' : 'Start' }
         </button>
+        <button onClick={this.reset}>
+          Reset
+        </button>
       </div>
     );
   }
@@ -70,7 +81,8 @@ function mapDispatchToProps (dispatch) {
   return {
     startTimer: bindActionCreators(ItemActions.startTimerDispatch, dispatch),
     stopTimer: bindActionCreators(ItemActions.stopTimerDispatch, dispatch),
-    tick: bindActionCreators(ItemActions.tickDispatch, dispatch)
+    tick: bindActionCreators(ItemActions.tickDispatch, dispatch),
+    resetTimer: bindActionCreators(ItemActions.resetTimerDispatch, dispatch)
   }
 }
 
