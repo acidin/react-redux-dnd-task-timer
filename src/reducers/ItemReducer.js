@@ -43,17 +43,23 @@ function hideItem (state, action) {
   return next
 }
 
+
 function startTimer (state, action) {
 
     const next = JSON.parse(JSON.stringify(state))
     const index = next.findIndex((item) => {
       return item.id === action.id
     })
-    next[index].isOn = true
-    //next[index].time = state.time
-    next[index].offset = action.offset
-    return next
 
+    const checkStarted = next.filter((item,i) => {
+      if ((item.isOn) && (i !== index)) return true;
+    })
+
+    if (checkStarted.length == 0) {
+      next[index].isOn = true
+      next[index].offset = action.offset
+      return next
+    }
 }
 
 function stopTimer (state, action) {
@@ -62,9 +68,15 @@ function stopTimer (state, action) {
   const index = next.findIndex((item) => {
     return item.id === action.id
   })
-  next[index].isOn = false
-  return next
 
+  const checkStarted = next.filter((item,i) => {
+    if ((item.isOn) && (i !== index)) return true;
+  })
+
+  if (checkStarted.length == 0) {
+    next[index].isOn = false
+    return next
+  }
 }
 
 function tick (state, action) {
