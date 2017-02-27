@@ -81,9 +81,10 @@ function tick (state, action) {
 }
 
 function updateItems(state, action) {
-  return {
-    ...state, items: action.newstate
-  }
+ return [
+    ...action.newstate,
+    ...state
+  ]
 }
 
 export default function (state = [], action) {

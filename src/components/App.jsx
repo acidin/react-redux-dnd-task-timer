@@ -16,12 +16,12 @@ class App extends React.Component {
     super(props);
   }
   render() {
-  //  const {isOn, time} = this.props;
+    const {items} = this.props;
     return (
       <div className="app">
 
         <AddItem />
-        <List />
+        <List items={items} />
       </div>
     )
   }

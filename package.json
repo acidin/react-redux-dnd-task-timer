@@ -17,6 +17,7 @@
   "author": "acidin",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.17.4",
     "react": "*",
     "react-dnd": "^2.2.3",
     "react-dnd-html5-backend": "^2.2.3",
