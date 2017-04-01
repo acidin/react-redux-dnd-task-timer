@@ -11,7 +11,8 @@ class Timer extends React.Component {
     _.bindAll(this,
       'start',
       'stop',
-      'reset'
+      'reset',
+      'progress'
     );
   }
 
@@ -19,22 +20,35 @@ class Timer extends React.Component {
 
     const {itemId} = this.props;
 
+    this._interval = requestAnimationFrame(this.progress);
+
     this.props.startTimer(itemId, Date.now());
 
-    this.interval = setInterval(() => {
+    /*this.interval = setInterval(() => {
       this.props.tick(itemId, Date.now());
-    });
+    });*/
+  }
+
+  progress()  {
+    const {itemId} = this.props;
+
+    this.props.tick(itemId, Date.now());
+
+    this._interval = requestAnimationFrame(this.progress);
   }
 
   stop() {
     const {itemId} = this.props;
-    this.interval = clearInterval(this.interval);
+
     this.props.stopTimer(itemId);
+
+    this._interval = cancelAnimationFrame(this._interval);
+
   }
 
   reset() {
     const {itemId} = this.props;
-    this.interval = clearInterval(this.interval);
+    this._interval = cancelAnimationFrame(this._interval);
     this.props.resetTimer(itemId);
   }
 
@@ -45,25 +59,31 @@ class Timer extends React.Component {
 
   format(time) {
 
-    Number.prototype.pad = function (len) {
-      return (new Array(len+1).join("0") + this).slice(-len);
+    const pad = (time, length) => {
+      while (time.length < length) {
+        time = '0' + time;
+      }
+      return time;
     }
 
     time = new Date(time);
 
-    var timeFormatted = time.getUTCHours().pad(2) + ":"
-      + time.getMinutes().pad(2) + ":"
-      + time.getSeconds().pad(2);
+    let h = pad(time.getUTCHours().toString(), 2);
+    let m = pad(time.getMinutes().toString(), 2);
+    let s = pad(time.getSeconds().toString(), 2);
+    let ms = pad(time.getMilliseconds().toString(), 3);
 
-    return timeFormatted;
+    return `${h} : ${m} : ${s} . ${ms}`;
+
+    //return timeFormatted;
   }
 
   render() {
     return (
       <div>
         <h1>Time: {this.format(this.props.time)}</h1>
-        <button onClick={this.interval ? this.stop : this.start}>
-          { this.interval ? 'Stop' : 'Start' }
+        <button onClick={this._interval ? this.stop : this.start}>
+          { this._interval ? 'Stop' : 'Start' }
         </button>
         <button onClick={this.reset}>
           Reset

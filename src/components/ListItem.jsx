@@ -29,7 +29,7 @@ class ListItem extends React.Component {
   }
   render() {
     const { text, itemId, isOn, time,  isDragging, connectDragSource, connectDropTarget } = this.props
-      console.log(this.props);
+      //console.log(this.props);
     const { isEditing } = this.state
     const className = this.getClassName()
     const opacity = isDragging ? 0 : 1;
@@ -89,7 +89,7 @@ function mapDispatchToProps (dispatch) {
 const cardSource = {
 
   beginDrag(props) {
-    console.log(props);
+    //console.log(props);
     return {
       index: props.index,
       card: props
@@ -137,10 +137,10 @@ const cardTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-    console.log(props.itemId);
-    console.log(sourceListId);
+    //console.log(props.itemId);
+    //console.log(sourceListId);
     if ( props.listId === sourceListId ) {
-      console.log(dragIndex, hoverIndex);
+      //console.log(dragIndex, hoverIndex);
       props.moveCard(dragIndex, hoverIndex);
       monitor.getItem().index = hoverIndex;
     }

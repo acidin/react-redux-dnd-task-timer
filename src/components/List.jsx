@@ -13,7 +13,7 @@ export class List extends React.Component {
   moveCard = (dragIndex, hoverIndex) => {
 
     var tempList = Object.assign([], this.props.items)
-    console.log(tempList);
+    //console.log(tempList);
     const dragCard = tempList[dragIndex]
     tempList.splice(dragIndex, 1)
     tempList.splice(hoverIndex, 0, dragCard)
@@ -23,7 +23,7 @@ export class List extends React.Component {
   }
   render() {
     const { items, connectDropTarget } = this.props
-    console.log(this.props.items);
+    //console.log(this.props.items);
     return connectDropTarget(
       <ul className="list">
         {
