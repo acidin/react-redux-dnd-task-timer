@@ -3,10 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import _ from 'underscore'
 import * as ItemActions from '../actions/ListActions.js'
+import Modal from 'react-modal';
 
 class Timer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      modalIsOpen: false
+    };
 
     _.bindAll(this,
       'start',
@@ -18,11 +23,18 @@ class Timer extends React.Component {
 
   start() {
 
-    const {itemId} = this.props;
+    const {itemId, checkStarted} = this.props;
 
-    this._interval = requestAnimationFrame(this.progress);
+    if (checkStarted == undefined) {
+      this._interval = requestAnimationFrame(this.progress);
 
-    this.props.startTimer(itemId, Date.now());
+      this.props.startTimer(itemId, Date.now());
+    } else {
+      this.setState({
+        modalIsOpen: true
+      })
+    }
+
 
   }
 
@@ -73,9 +85,34 @@ class Timer extends React.Component {
 
   }
 
+  closeModal=()=> {
+    this.setState({
+      modalIsOpen: false
+    });
+  };
+
   render() {
+    const {modalIsOpen} = this.state;
+    const customStyles = {
+      content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
     return (
       <div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel="contentLabel"
+          style={customStyles} >
+          <div>You should stop active task at first!</div>
+          <button onClick={this.closeModal}>close</button>
+        </Modal>
         <h1>Time: {this.format(this.props.time)}</h1>
         <button onClick={this._interval ? this.stop : this.start}>
           { this._interval ? 'Stop' : 'Start' }

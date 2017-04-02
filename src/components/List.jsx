@@ -18,9 +18,13 @@ export class List extends React.Component {
     tempList.splice(hoverIndex, 0, dragCard);
     this.props.updateItems(tempList);
 
-  }
+  };
+
   render() {
     const { items, connectDropTarget } = this.props;
+
+    const itemStarted = items.find(item => item.isOn === true);
+
     return connectDropTarget(
       <ul className="list">
         {
@@ -29,6 +33,7 @@ export class List extends React.Component {
                       hidden={hidden} isOn={isOn} time={time}
                       index={index}
                       moveCard={this.moveCard}
+                      checkStarted={itemStarted}
             />
           )
         }

@@ -28,7 +28,7 @@ class ListItem extends React.Component {
     )
   }
   render() {
-    const { text, itemId, isOn, time,  isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { text, itemId, isOn, time,  isDragging, connectDragSource, connectDropTarget, checkStarted } = this.props;
     const { isEditing } = this.state;
     const className = this.getClassName();
     const opacity = isDragging ? 0 : 1;
@@ -45,7 +45,7 @@ class ListItem extends React.Component {
             <IconButton icon="trashCan" text="Delete" onClick={this.handleDelete} />
           </div>
         }
-        <Timer itemId={itemId} isOn={isOn} time={time} />
+        <Timer itemId={itemId} isOn={isOn} time={time} checkStarted={checkStarted} />
       </li>
     ))
   }

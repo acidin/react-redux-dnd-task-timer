@@ -46,21 +46,15 @@ function hideItem (state, action) {
 
 function startTimer (state, action) {
 
-    const next = JSON.parse(JSON.stringify(state));
+  const next = JSON.parse(JSON.stringify(state));
 
-    const index = next.findIndex((item) => {
-      return item.id === action.id
-    });
-
-    const checkStarted = next.filter((item,i) => {
-      if ((item.isOn) && (i !== index)) return true;
-    });
+  const index = next.findIndex((item) => {
+    return item.id === action.id
+  });
 
   next[index].offset = action.offset;
 
-  next.forEach((item,i) => {
-    item.isOn = i == index;
-  });
+  next[index].isOn = true;
 
   return next
 
