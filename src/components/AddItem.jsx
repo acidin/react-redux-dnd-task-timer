@@ -6,12 +6,12 @@ import _ from 'underscore'
 import * as ItemActions from '../actions/ListActions.js'
 import IconButton from './IconButton.jsx'
 
-require('../stylesheets/AddItem.css')
+import '../stylesheets/AddItem.css'
 
 class AddItem extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = { itemText: '' }
+    super(props);
+    this.state = { itemText: '' };
     _.bindAll(this,
       'handleInputChange',
       'handleInputKeyUp',
@@ -19,7 +19,7 @@ class AddItem extends React.Component {
     );
   }
   render() {
-    const { itemText } = this.state
+    const { itemText } = this.state;
     return (
       <div className="addItem">
         <input ref="itemInput"
@@ -35,25 +35,25 @@ class AddItem extends React.Component {
   handleInputKeyUp(evt) {
     switch (evt.key) {
       case 'Enter':
-        return this.handleAddItem()
+        return this.handleAddItem();
       case 'Escape':
-        return this.resetItemInput()
+        return this.resetItemInput();
     }
   }
   handleInputChange(evt) {
-    const itemText = evt.target.value
+    const itemText = evt.target.value;
     this.setState({ itemText: itemText })
   }
   handleAddItem() {
-    const { itemText } = this.state
+    const { itemText } = this.state;
     if (itemText) {
-      this.props.addItem(itemText)
-      this.resetItemInput()
+      this.props.addItem(itemText);
+      this.resetItemInput();
     }
   }
   resetItemInput() {
-    const { itemInput } = this.refs
-    this.setState({ itemText: '' })
+    const { itemInput } = this.refs;
+    this.setState({ itemText: '' });
     itemInput.focus()
   }
 }

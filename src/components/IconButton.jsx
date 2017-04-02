@@ -2,12 +2,12 @@ import React from 'react'
 import { render } from 'react-dom'
 import Icon from './Icon.jsx'
 
-require('../stylesheets/IconButton.css')
+import '../stylesheets/IconButton.css'
 
 export default class IconButton extends React.Component {
   render() {
-    const { icon, text, onClick } = this.props
-    const className = this.getClassName()
+    const { icon, text, onClick } = this.props;
+    const className = this.getClassName();
     return (
       <a className={className} title={text} onClick={onClick}>
         <Icon icon={icon} size="14" />
@@ -16,8 +16,8 @@ export default class IconButton extends React.Component {
     )
   }
   getClassName() {
-    const classes = ['iconButton']
-    const { className } = this.props
+    const classes = ['iconButton'];
+    const { className } = this.props;
     if (className) {
       classes.push(className)
     }

@@ -40,15 +40,22 @@ function updateItems(newstate) {
   return {type: types.UPDATE_ITEMS, newstate}
 }
 
-let id = 3
 const getUniqueId = () => {
-  return id++;
-}
+
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+
+};
 
 export function addItem (text) {
   return dispatch => {
-    const id = getUniqueId()
-    dispatch(addItemOptimistic(text, id))
+    const id = getUniqueId();
+    dispatch(addItemOptimistic(text, id));
     setTimeout(() => dispatch(showItem(id)), 1)
   }
 }
@@ -61,7 +68,7 @@ export function editItem (id, updatedText) {
 
 export function deleteItem (id) {
   return dispatch => {
-    dispatch(hideItem(id))
+    dispatch(hideItem(id));
     setTimeout(() => dispatch(deleteItemOptimistic(id)), 500)
   }
 }

@@ -13,14 +13,14 @@ import ListItemEditor from './ListItemEditor.jsx'
 import IconButton from './IconButton.jsx'
 import Timer from './Timer.jsx'
 
-require('../stylesheets/ListItem.css')
+import '../stylesheets/ListItem.css'
 
 class ListItem extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      isEditing: false,
-    }
+      isEditing: false
+    };
     _.bindAll(this,
       'onDoneEditing',
       'handleStartEditing',
@@ -28,10 +28,9 @@ class ListItem extends React.Component {
     )
   }
   render() {
-    const { text, itemId, isOn, time,  isDragging, connectDragSource, connectDropTarget } = this.props
-      //console.log(this.props);
-    const { isEditing } = this.state
-    const className = this.getClassName()
+    const { text, itemId, isOn, time,  isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { isEditing } = this.state;
+    const className = this.getClassName();
     const opacity = isDragging ? 0 : 1;
     return connectDragSource(connectDropTarget(
       <li style={{opacity}} className={className}>
@@ -51,7 +50,7 @@ class ListItem extends React.Component {
     ))
   }
   getClassName() {
-    const classes = ['listItem']
+    const classes = ['listItem'];
     if (this.props.hidden) {
       classes.push(' hide')
     }
@@ -64,7 +63,7 @@ class ListItem extends React.Component {
     this.setState({ isEditing: false })
   }
   handleDelete() {
-    const { itemId } = this.props
+    const { itemId } = this.props;
     this.props.deleteItem(itemId)
   }
 }
@@ -79,17 +78,9 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-
-/*export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ListItem)*/
-
-
 const cardSource = {
 
   beginDrag(props) {
-    //console.log(props);
     return {
       index: props.index,
       card: props
@@ -137,10 +128,7 @@ const cardTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-    //console.log(props.itemId);
-    //console.log(sourceListId);
     if ( props.listId === sourceListId ) {
-      //console.log(dragIndex, hoverIndex);
       props.moveCard(dragIndex, hoverIndex);
       monitor.getItem().index = hoverIndex;
     }
@@ -150,7 +138,7 @@ const cardTarget = {
 let ConnectedListItem =  connect(
   mapStateToProps,
   mapDispatchToProps
-)(ListItem)
+)(ListItem);
 
 
 export default flow(

@@ -24,9 +24,6 @@ class Timer extends React.Component {
 
     this.props.startTimer(itemId, Date.now());
 
-    /*this.interval = setInterval(() => {
-      this.props.tick(itemId, Date.now());
-    });*/
   }
 
   progress()  {
@@ -64,18 +61,16 @@ class Timer extends React.Component {
         time = '0' + time;
       }
       return time;
-    }
+    };
 
     time = new Date(time);
 
     let h = pad(time.getUTCHours().toString(), 2);
     let m = pad(time.getMinutes().toString(), 2);
     let s = pad(time.getSeconds().toString(), 2);
-    let ms = pad(time.getMilliseconds().toString(), 3);
 
-    return `${h} : ${m} : ${s} . ${ms}`;
+    return `${h} : ${m} : ${s}`;
 
-    //return timeFormatted;
   }
 
   render() {

@@ -8,84 +8,81 @@ function addItem (state, action) {
 }
 
 function editItem (state, action) {
-  const next = JSON.parse(JSON.stringify(state))
+  const next = JSON.parse(JSON.stringify(state));
   const index = next.findIndex((item) => {
     return item.id === action.id
-  })
-  next[index].text = action.updatedText
+  });
+  next[index].text = action.updatedText;
   return next
 }
 
 function deleteItem (state, action) {
-  const next = JSON.parse(JSON.stringify(state))
+  const next = JSON.parse(JSON.stringify(state));
   const index = next.findIndex((item) => {
     return item.id === action.id
-  })
-  next.splice(index, 1)
+  });
+  next.splice(index, 1);
   return next
 }
 
 function showItem (state, action) {
-  const next = JSON.parse(JSON.stringify(state))
+  const next = JSON.parse(JSON.stringify(state));
   const index = next.findIndex((item) => {
     return item.id === action.id
-  })
-  next[index].hidden = false
+  });
+  next[index].hidden = false;
   return next
 }
 
 function hideItem (state, action) {
-  const next = JSON.parse(JSON.stringify(state))
+  const next = JSON.parse(JSON.stringify(state));
   const index = next.findIndex((item) => {
     return item.id === action.id
-  })
-  next[index].hidden = true
+  });
+  next[index].hidden = true;
   return next
 }
 
 
 function startTimer (state, action) {
 
-    const next = JSON.parse(JSON.stringify(state))
+    const next = JSON.parse(JSON.stringify(state));
 
-  console.log(next);
     const index = next.findIndex((item) => {
       return item.id === action.id
-    })
+    });
 
     const checkStarted = next.filter((item,i) => {
       if ((item.isOn) && (i !== index)) return true;
-    })
+    });
 
-    if (checkStarted.length == 0) {
-      next[index].isOn = true
-      next[index].offset = action.offset
-      return next
-    } else {  // todo
-      next[index].isOn = false
-      next[index].offset = action.offset
-      return next
-    }
+  next[index].offset = action.offset;
+
+  next.forEach((item,i) => {
+    item.isOn = i == index;
+  });
+
+  return next
+
 }
 
 function stopTimer (state, action) {
 
-  const next = JSON.parse(JSON.stringify(state))
-  console.log(next);
+  const next = JSON.parse(JSON.stringify(state));
+
   const index = next.findIndex((item) => {
     return item.id === action.id
-  })
+  });
 
   const checkStarted = next.filter((item,i) => {
     if ((item.isOn) && (i !== index)) return true;
-   // return ((item.isOn) && (i !== index));
-  })
+  });
 
   if (checkStarted.length == 0) {
-    next[index].isOn = false
+    next[index].isOn = false;
     return next
   } else {
-    next[index].isOn = true  // todo
+    next[index].isOn = true;
     return next
   }
 
@@ -93,25 +90,25 @@ function stopTimer (state, action) {
 
 function tick (state, action) {
 
-  const next = JSON.parse(JSON.stringify(state))
+  const next = JSON.parse(JSON.stringify(state));
   const index = next.findIndex((item) => {
     return item.id === action.id
-  })
+  });
 
-  next[index].time = next[index].time + (action.time - next[index].offset)
-  next[index].offset = action.time
+  next[index].time = next[index].time + (action.time - next[index].offset);
+  next[index].offset = action.time;
   return next
 
 }
 
 function resetTimer (state, action) {
 
-  const next = JSON.parse(JSON.stringify(state))
+  const next = JSON.parse(JSON.stringify(state));
   const index = next.findIndex((item) => {
     return item.id === action.id
-  })
-  next[index].isOn = false
-  next[index].time = 0
+  });
+  next[index].isOn = false;
+  next[index].time = 0;
   return next
 
 }
@@ -125,34 +122,34 @@ function updateItems(state, action) {
 export default function (state = [], action) {
   switch (action.type) {
     case types.ADD_ITEM:
-      return addItem(state, action)
+      return addItem(state, action);
 
     case types.EDIT_ITEM:
-      return editItem(state, action)
+      return editItem(state, action);
 
     case types.DELETE_ITEM:
-      return deleteItem(state, action)
+      return deleteItem(state, action);
 
     case types.SHOW_ITEM:
-      return showItem(state, action)
+      return showItem(state, action);
 
     case types.HIDE_ITEM:
-      return hideItem(state, action)
+      return hideItem(state, action);
 
     case types.START_TIMER:
-      return startTimer(state, action)
+      return startTimer(state, action);
 
     case types.STOP_TIMER:
-      return stopTimer(state, action)
+      return stopTimer(state, action);
 
     case types.RESET_TIMER:
-      return resetTimer(state, action)
+      return resetTimer(state, action);
 
     case types.TICK:
-      return tick(state, action)
+      return tick(state, action);
 
     case types.UPDATE_ITEMS:
-      return updateItems(state, action)
+      return updateItems(state, action);
 
     default:
       return state

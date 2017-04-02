@@ -7,9 +7,9 @@ import List from './List.jsx'
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-require('../stylesheets/Reset.css')
-require('../stylesheets/Colors.css')
-require('../stylesheets/App.css')
+import '../stylesheets/Reset.css'
+import '../stylesheets/Colors.css'
+import '../stylesheets/App.css'
 
 class App extends React.Component {
   constructor(props){

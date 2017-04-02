@@ -6,24 +6,21 @@ import ListItem from './ListItem.jsx'
 import { DropTarget } from 'react-dnd'
 import * as ItemActions from '../actions/ListActions.js'
 
-require('../stylesheets/List.css')
+import '../stylesheets/List.css'
 
 export class List extends React.Component {
 
   moveCard = (dragIndex, hoverIndex) => {
 
-    var tempList = Object.assign([], this.props.items)
-    //console.log(tempList);
-    const dragCard = tempList[dragIndex]
-    tempList.splice(dragIndex, 1)
-    tempList.splice(hoverIndex, 0, dragCard)
-    //this.props.dispatch({ type: 'update_cards', data: tempList })
-    this.props.updateItems(tempList)
+    var tempList = Object.assign([], this.props.items);
+    const dragCard = tempList[dragIndex];
+    tempList.splice(dragIndex, 1);
+    tempList.splice(hoverIndex, 0, dragCard);
+    this.props.updateItems(tempList);
 
   }
   render() {
-    const { items, connectDropTarget } = this.props
-    //console.log(this.props.items);
+    const { items, connectDropTarget } = this.props;
     return connectDropTarget(
       <ul className="list">
         {
@@ -51,11 +48,6 @@ function mapDispatchToProps (dispatch) {
     updateItems: bindActionCreators(ItemActions.updateItemsDispatch, dispatch)
   }
 }
-
-/*export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(List)*/
 
 
 let connect_context = connect(mapStateToProps, mapDispatchToProps)(List)

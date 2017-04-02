@@ -6,12 +6,12 @@ import _ from 'underscore'
 import * as ItemActions from '../actions/ListActions.js'
 import IconButton from './IconButton.jsx'
 
-require('../stylesheets/ListItemEditor.css')
+import '../stylesheets/ListItemEditor.css'
 
 class ListItemEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editedText: props.text }
+    this.state = { editedText: props.text };
     _.bindAll(this,
       'handleInputChange',
       'handleInputKeyUp',
@@ -20,7 +20,7 @@ class ListItemEditor extends React.Component {
     )
   }
   render() {
-    const { editedText } = this.state
+    const { editedText } = this.state;
     return (
       <div className="listItemEditor">
         <input ref="editInput"
@@ -38,23 +38,23 @@ class ListItemEditor extends React.Component {
   handleInputKeyUp(evt) {
     switch (evt.key) {
       case 'Enter':
-        return this.handleEditSave()
+        return this.handleEditSave();
       case 'Escape':
-        return this.handleEditCancel()
+        return this.handleEditCancel();
     }
   }
   handleInputChange(evt) {
-    const editedText = evt.target.value
+    const editedText = evt.target.value;
     this.setState({ editedText: editedText })
   }
   handleEditSave() {
-    const { itemId } = this.props
-    const { editedText } = this.state
-    this.props.editItem(itemId, editedText)
-    this.props.onDoneEditing()
+    const { itemId } = this.props;
+    const { editedText } = this.state;
+    this.props.editItem(itemId, editedText);
+    this.props.onDoneEditing();
   }
   handleEditCancel() {
-    this.props.onDoneEditing()
+    this.props.onDoneEditing();
   }
 }
 
